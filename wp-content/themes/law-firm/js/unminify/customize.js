@@ -1,0 +1,95 @@
+( function( api ) {
+
+    api.sectionConstructor['pro-section'] = api.Section.extend( {
+
+        attachEvents: function () {},
+
+        isContextuallyActive: function () {
+            return true;
+        }
+    } );
+
+} )( wp.customize );
+
+/**
+ * Customizer Section navigation to particular website section.
+ */
+jQuery(document).ready(function($) {
+    //Scroll to front page section
+    $('body').on('click', '#sub-accordion-panel-frontpage_settings_panel .control-subsection .accordion-section-title', function(event) {
+        var section_id = $(this).parent('.control-subsection').attr('id');
+        scrollToSection( section_id );
+    });
+
+    function scrollToSection( section_id ){
+
+        var preview_section_id = "banner-section";
+    
+        var $contents = jQuery('#customize-preview iframe').contents();
+    
+        switch ( section_id ) {
+            case 'accordion-section-about_section':
+            preview_section_id = "front-about";
+            break;
+
+            case 'accordion-section-service_section':
+            preview_section_id = "front-service";
+            break;
+  
+            case 'accordion-section-message_section':
+            preview_section_id = "front-quotes";
+            break;
+
+            case 'accordion-section-history_section':
+            preview_section_id = "front-history";
+            break;
+
+            case 'accordion-section-front_team_section':
+            preview_section_id = "front-team";
+            break;
+
+            case 'accordion-section-counter_section':
+            preview_section_id = "front-counter";
+            break;
+
+            case 'accordion-section-front_casestudies_section':
+            preview_section_id = "front-casestudies";
+            break;
+
+            case 'accordion-section-features_section':
+            preview_section_id = "front-features";
+            break;
+
+            case 'accordion-section-front_pricing_section':
+            preview_section_id = "front-pricing";
+            break;
+
+            case 'accordion-section-faqs_section':
+            preview_section_id = "front-faq";
+            break;
+            
+            case 'accordion-section-contact_section':
+            preview_section_id = "front-contact";
+            break;
+
+            case 'accordion-section-testimonial_section':
+            preview_section_id = "front-testimonial";
+            break;
+
+            case 'accordion-section-blog_section':
+            preview_section_id = "front-blog";
+            break;            
+            
+            case 'accordion-section-front_partner':
+            preview_section_id = "front-partner";
+            break;    
+        }
+    
+        if( $contents.find('#'+preview_section_id).length > 0 && $contents.find('.home').length > 0 ){
+            $contents.find("html, body").animate({
+            scrollTop: $contents.find( "#" + preview_section_id ).offset().top
+            }, 1000);
+        }
+    }
+
+});
